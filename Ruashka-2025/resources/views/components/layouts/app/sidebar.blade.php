@@ -16,70 +16,175 @@
             <x-app-logo />
         </a>
 
-               <flux:navlist variant="outline">
+        <!-- NAVLIST PRINCIPAL (CORRECTAMENTE ABIERTO) -->
+        <flux:navlist variant="outline">
 
-                        <!-- Submenú con Alpine.js -->
-                        <div x-data="{ openConfig: false }">
+            <!-- SUBMENÚ CONFIGURACIÓN -->
+            <div x-data="{ openConfig: false }">
 
-                            <!-- ENCABEZADO DEL GRUPO -->
-                            <button
-                                @click="openConfig = !openConfig"
-                                class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium
-                                    text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-[#192133]
-                                    rounded-md transition">
-                                <span>Configuración</span>
+                <button
+                    @click="openConfig = !openConfig"
+                    class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium
+                        text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-[#192133]
+                        rounded-md transition">
+                    <span>Configuración</span>
 
-                                <!-- Flecha que rota -->
-                                <svg x-bind:class="openConfig ? 'rotate-90' : ''"
-                                    class="w-4 h-4 transition-transform"
-                                    fill="none" stroke="currentColor" stroke-width="2"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                            </button>
+                    <svg x-bind:class="openConfig ? 'rotate-90' : ''"
+                        class="w-4 h-4 transition-transform"
+                        fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
 
-                            <!-- ITEMS DEL SUBMENÚ -->
-                            <div x-show="openConfig"
-                                x-transition
-                                class="ml-4 mt-2 space-y-1">
+                <div x-show="openConfig" x-transition class="ml-4 mt-2 space-y-1">
 
-                                <flux:navlist.item
-                                    icon="users"
-                                    class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
-                                    href="{{ route('worker.index') }}"
-                                    wire:navigate>
-                                    Trabajadores
-                                </flux:navlist.item>
+                    <flux:navlist.item
+                        icon="users"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        href="{{ route('worker.index') }}"
+                        wire:navigate>
+                        Trabajadores
+                    </flux:navlist.item>
 
-                                <flux:navlist.item
-                                    icon="building-office"
-                                    class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
-                                    href="{{ route('sede.index') }}"
-                                    wire:navigate>
-                                    Sedes
-                                </flux:navlist.item>
+                    <flux:navlist.item
+                        icon="building-office"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        href="{{ route('sede.index') }}"
+                        wire:navigate>
+                        Sedes
+                    </flux:navlist.item>
 
-                                <flux:navlist.item
-                                    icon="shield-check"
-                                    class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
-                                    href="{{ route('role.index') }}"
-                                    wire:navigate>
-                                    Roles
-                                </flux:navlist.item>
+                    <flux:navlist.item
+                        icon="shield-check"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        href="{{ route('role.index') }}"
+                        wire:navigate>
+                        Roles
+                    </flux:navlist.item>
 
-                            </div>
+                </div>
+            </div>
 
-                        </div>
+            <!-- SUBMENÚ TIENDA -->
+            <div x-data="{ openStore: false }" x-cloak>
 
-                    </flux:navlist>
+                <button
+                    @click.stop="openStore = !openStore"
+                    class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium
+                        text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-[#192133]
+                        rounded-md transition">
 
+                    <span>Administración de Tienda</span>
 
+                    <svg :class="openStore ? 'rotate-90' : ''"
+                        class="w-4 h-4 transition-transform duration-200"
+                        fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
 
+                <div x-show="openStore" x-collapse class="ml-4 mt-2 space-y-1">
+
+                    <flux:navlist.item icon="building-storefront"
+                        href="{{ route('store.dashboard') }}"
+                        :current="request()->routeIs('store.dashboard')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Panel de Tienda
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="chart-bar"
+                        href="{{ route('store.summary') }}"
+                        :current="request()->routeIs('store.summary')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Resumen
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="users"
+                        href="{{ route('store.personnel') }}"
+                        :current="request()->routeIs('store.personnel')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Personal
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="clock"
+                        href="{{ route('store.attendance') }}"
+                        :current="request()->routeIs('store.attendance')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Asistencia
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="wrench"
+                        href="{{ route('store.maintenance') }}"
+                        :current="request()->routeIs('store.maintenance')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Mantenimiento
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="document-text"
+                        href="{{ route('store.documents') }}"
+                        :current="request()->routeIs('store.documents')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Documentos
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="exclamation-triangle"
+                        href="{{ route('store.incidents') }}"
+                        :current="request()->routeIs('store.incidents')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Incidentes
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="inbox-arrow-down"
+                        href="{{ route('store.requests') }}"
+                        :current="request()->routeIs('store.requests')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Solicitudes
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="shield-check"
+                        href="{{ route('store.access-logs') }}"
+                        :current="request()->routeIs('store.access-logs')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Registros de Acceso
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="chat-bubble-left-right"
+                        href="{{ route('store.communications') }}"
+                        :current="request()->routeIs('store.communications')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Comunicaciones
+                    </flux:navlist.item>
+
+                    <flux:navlist.item icon="cog-6-tooth"
+                        href="{{ route('store.settings') }}"
+                        :current="request()->routeIs('store.settings')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Configuración de Tienda
+                    </flux:navlist.item>
+
+                </div>
+            </div>
+
+        </flux:navlist> <!-- ← CIERRE CORRECTO -->
 
         <flux:spacer />
 
-        <!-- Botón dark mode mejorado con estilo azul -->
+        <!-- Dark Mode Button -->
         <button
             onclick="toggleDarkMode()"
             id="darkModeToggle"
@@ -119,7 +224,7 @@
             });
         </script>
 
-        <!-- Desktop User Menu -->
+        <!-- User Menu Desktop -->
         <flux:dropdown class="hidden lg:block" position="bottom" align="start">
 
             <flux:profile
@@ -229,7 +334,6 @@
                 </form>
 
             </flux:menu>
-
         </flux:dropdown>
 
     </flux:header>

@@ -54,5 +54,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/roles', Roles::class)->name('role.index');
         Route::get('/roles/create', AddRole::class)->name('role.create');
         Route::get('/roles/{id}', ShowRole::class)->name('role.show');
+        });
 
-});
+        Route::middleware(['auth', 'verified'])->prefix('store')->name('store.')->group(function () {
+        Route::get('dashboard', \App\Livewire\Store\Dashboard::class)->name('dashboard');
+        Route::get('summary', \App\Livewire\Store\Summary::class)->name('summary');
+        Route::get('personnel', \App\Livewire\Store\Personnel::class)->name('personnel');
+        Route::get('attendance', \App\Livewire\Store\Attendance::class)->name('attendance');
+        Route::get('maintenance', \App\Livewire\Store\Maintenance::class)->name('maintenance');
+        Route::get('documents', \App\Livewire\Store\Documents::class)->name('documents');
+        Route::get('incidents', \App\Livewire\Store\Incidents::class)->name('incidents');
+        Route::get('requests', \App\Livewire\Store\Requests::class)->name('requests');
+        Route::get('access-logs', \App\Livewire\Store\AccessLogs::class)->name('access-logs');
+        Route::get('communications', \App\Livewire\Store\Communications::class)->name('communications');
+        Route::get('settings', \App\Livewire\Store\Settings::class)->name('settings');
+    });
