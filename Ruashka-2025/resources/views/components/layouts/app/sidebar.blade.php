@@ -12,10 +12,79 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                </flux:navlist.group>
-            </flux:navlist>
+
+    <!-- Submenú con Alpine -->
+    <div x-data="{ openProd: false }">
+
+        <!-- Botón de título -->
+        <button
+            @click="openProd = !openProd"
+            class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium
+                   text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-[#192133]
+                   rounded-md transition">
+            <span>Producción</span>
+
+            <!-- Flechita -->
+            <svg x-bind:class="openProd ? 'rotate-90' : ''"
+                 class="w-4 h-4 transition-transform"
+                 fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+
+        <!-- Ítems del submenú -->
+        <div x-show="openProd"
+             x-transition
+             class="ml-4 mt-2 space-y-1">
+
+            <flux:navlist.item
+                icon="clipboard"
+                :href="route('orden_produccion.index')"
+                :current="request()->routeIs('orden_produccion.*')"
+                wire:navigate>
+                Órdenes de Producción
+            </flux:navlist.item>
+
+            <flux:navlist.item
+                icon="chart-bar"
+                :href="route('proyecciones.index')"
+                :current="request()->routeIs('proyecciones.*')"
+                wire:navigate>
+                Proyecciones
+            </flux:navlist.item>
+
+            <flux:navlist.item
+                icon="cube"
+                :href="route('materia_prima.index')"
+                :current="request()->routeIs('materia_prima.*')"
+                wire:navigate>
+                Materia Prima
+            </flux:navlist.item>
+
+            <flux:navlist.item
+                icon="user-group"
+                :href="route('proveedores.index')"
+                :current="request()->routeIs('proveedores.*')"
+                wire:navigate>
+                Proveedores
+            </flux:navlist.item>
+
+            <flux:navlist.item
+                icon="users"
+                :href="route('roles.index')"
+                :current="request()->routeIs('roles.*')"
+                wire:navigate>
+                Roles
+            </flux:navlist.item>
+
+        </div>
+
+    </div>
+
+</flux:navlist>
+
 
             <flux:spacer />
 
