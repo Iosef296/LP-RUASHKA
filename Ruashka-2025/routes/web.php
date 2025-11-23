@@ -15,6 +15,10 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('control-general', \App\Livewire\ControlGeneral::class)
+    ->middleware(['auth', 'verified'])
+    ->name('control-general');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
