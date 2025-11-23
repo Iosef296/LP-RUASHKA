@@ -1,9 +1,20 @@
 <?php
 
+use App\Livewire\AddRole;
+use App\Livewire\AddSede;
+use App\Livewire\Addworker;
+use App\Livewire\EditWorker;
+use App\Livewire\Roles;
+use App\Livewire\Sedes;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
+use App\Livewire\ShowRole;
+use App\Livewire\ShowSede;
+use App\Livewire\ShowWorker;
+use App\Livewire\Worker;
+use Illuminate\Queue\Events\WorkerStarting;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -32,4 +43,16 @@ Route::middleware(['auth'])->group(function () {
             ),
         )
         ->name('two-factor.show');
+        Route::get('/workers', Worker::class)->name('worker.index');
+        Route::get('/workers/create', Addworker::class)->name('worker.create');
+        Route::get('/workers/{id}/edit', EditWorker::class)->name('worker.edit');
+        Route::get('/workers/{id}', ShowWorker::class)->name('worker.show');
+        Route::delete('/workers/{id}', [Worker::class, 'destroy'])->name('worker.destroy');
+        Route::get('/sedes', Sedes::class)->name('sede.index');
+        Route::get('/sedes/create', AddSede::class)->name('sede.create');
+        Route::get('/sedes/{id}', ShowSede::class)->name('sede.show');
+        Route::get('/roles', Roles::class)->name('role.index');
+        Route::get('/roles/create', AddRole::class)->name('role.create');
+        Route::get('/roles/{id}', ShowRole::class)->name('role.show');
+
 });
