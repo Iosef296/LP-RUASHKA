@@ -14,6 +14,10 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+
+                    <flux:navlist.item icon="home" :href="route('inveradd')" :current="request()->routeIs('inveradd')" wire:navigate>{{ __('invertario') }}</flux:navlist.item>
+
+                    <flux:navlist.item icon="inbox-stack" :href="route('inventorylist')" :current="request()->routeIs('inventorylist')" wire:navigate>{{ __('lista') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

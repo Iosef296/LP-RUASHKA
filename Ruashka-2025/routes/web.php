@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\InventoryList;
+use App\Livewire\InverAdd;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -32,4 +34,7 @@ Route::middleware(['auth'])->group(function () {
             ),
         )
         ->name('two-factor.show');
+        route::get('inveradd',InverAdd::class)->name('inveradd');
+        route::get('inventorylist',InventoryList::class)->name('inventorylist');
+
 });
