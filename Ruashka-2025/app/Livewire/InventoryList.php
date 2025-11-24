@@ -11,10 +11,12 @@ class InventoryList extends Component
 {
     use WithPagination;
 
+    protected $listeners = ['$refresh']; // ← ESTO HACE QUE LA TABLA SE ACTUALICE SOLA
+
     public $search = '';
     public $category_id = '';
-    public $modalOpen  = false;
-    public $editando   = false;
+    public $modalOpen = false;
+    public $editando = false;
     public $productoId = null;
 
     public $form = [
@@ -30,7 +32,7 @@ class InventoryList extends Component
         'form.category_id' => 'required|exists:categories,id',
         'form.name'        => 'required|string|max:255',
         'form.price'       => 'required|numeric|min:0',
-        'form.quantity'    => 'required|integer|min:0',
+        'form.quantity'    => 'required|integer|min:1',
         'form.location'    => 'required|string|max:255',
     ];
 
@@ -50,6 +52,7 @@ class InventoryList extends Component
     public function abrirCrear()
     {
         $this->reset('form', 'editando', 'productoId');
+        $this->form['quantity'] = 1;
         $this->modalOpen = true;
     }
 
@@ -69,16 +72,31 @@ class InventoryList extends Component
         if ($this->editando) {
             Product::find($this->productoId)->update($this->form);
         } else {
-            Product::create($this->form);
+            // Generar nombre automático: Gorros #48, Chalinas #23, etc.
+            $categoria = Category::find($this->form['category_id']);
+            $siguiente = Product::where('category_id', $this->form['category_id'])->count() + 1;
+
+            Product::create([
+                'category_id' => $this->form['category_id'],
+                'name'        => $categoria->name . ' #' . $siguiente,
+                'price'       => $this->form['price'],
+                'quantity'    => $this->form['quantity'],
+                'location'    => $this->form['location'],
+                'description' => $this->form['description'] ?? null,
+            ]);
         }
 
         $this->modalOpen = false;
         $this->reset('form', 'editando', 'productoId');
+
+        // ← ESTA LÍNEA ES LA CLAVE: ACTUALIZA LA TABLA AL INSTANTE
+        $this->dispatch('$refresh');
     }
 
     public function eliminar($id)
     {
         Product::find($id)->delete();
+        $this->dispatch('$refresh'); // también actualiza al eliminar
     }
 
     public function cerrarModal()

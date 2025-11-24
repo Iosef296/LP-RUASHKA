@@ -30,22 +30,28 @@ class InverAdd extends Component
     }
 
     public function guardar()
-    {
-        $this->validate();
+{
+    $this->validate();
 
-        Product::create([
-            'category_id' => $this->category_id,
-            'name'        => Category::find($this->category_id)->name, // ej: "Chalinas"
-            'price'       => $this->price,
-            'quantity'    => $this->quantity,
-            'location'    => $this->location,
-        ]);
+    $categoria = Category::find($this->category_id);
 
-        $this->modal = false;
-        $this->dispatch('productoAgregado'); // para refrescar la tabla si tienes InventoryList en la misma página
+    Product::create([
+        'category_id' => $this->category_id,
+        'name'        => $categoria->name . ' #' . (Product::where('category_id', $this->category_id)->count() + 1),
+        'price'       => $this->price,
+        'quantity'    => $this->quantity,
+        'location'    => $this->location,
+    ]);
 
-        session()->flash('message', '¡Producto agregado al inventario con éxito!');
-    }
+    // ← ESTA LÍNEA HACE QUE LA TABLA SE ACTUALICE AL INSTANTE
+    $this->dispatch('$refresh');
+
+    $this->modal = false;
+    $this->reset(['category_id', 'price', 'quantity', 'location']);
+    $this->quantity = 1;
+
+    session()->flash('success', '¡Producto agregado al inventario!');
+}
 
     public function render()
     {
