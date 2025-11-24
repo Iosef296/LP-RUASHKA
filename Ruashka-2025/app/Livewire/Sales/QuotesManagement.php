@@ -50,6 +50,7 @@ class QuotesManagement extends Component
     {
         return Cliente::where('name', 'like', '%' . $this->customerSearchModal . '%')
             ->orWhere('document_number', 'like', '%' . $this->customerSearchModal . '%')
+            ->latest()
             ->take(10)
             ->get();
     }

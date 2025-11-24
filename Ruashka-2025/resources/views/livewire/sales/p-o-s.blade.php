@@ -16,7 +16,7 @@
                     <div class="mt-4 flex justify-between items-center">
                         <span class="text-xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</span>
                         <span class="text-sm {{ $product->stock_quantity > 0 ? 'text-green-600' : 'text-red-600' }}">
-                            {{ $product->stock_quantity > 0 ? 'Stock: ' . $product->stock_quantity : 'Sin Stock' }}
+                            {{ $product->stock_quantity > 0 ? 'Disponible: ' . $product->stock_quantity : 'Agotado' }}
                         </span>
                     </div>
                 </div>
