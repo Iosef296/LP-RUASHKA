@@ -12,20 +12,36 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                <flux:navlist.group :heading="__('Plataforma')" class="grid">
+                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Panel') }}</flux:navlist.item>
                 </flux:navlist.group>
+            </flux:navlist>
+
+            <flux:separator class="my-2" />
+
+            <flux:navlist variant="outline" heading="Administración de Tienda">
+                <flux:navlist.item icon="building-storefront" href="{{ route('store.dashboard') }}" :current="request()->routeIs('store.dashboard')">{{ __('Panel de Tienda') }}</flux:navlist.item>
+                <flux:navlist.item icon="chart-bar" href="{{ route('store.summary') }}" :current="request()->routeIs('store.summary')">{{ __('Resumen') }}</flux:navlist.item>
+                <flux:navlist.item icon="users" href="{{ route('store.personnel') }}" :current="request()->routeIs('store.personnel')">{{ __('Personal') }}</flux:navlist.item>
+                <flux:navlist.item icon="clock" href="{{ route('store.attendance') }}" :current="request()->routeIs('store.attendance')">{{ __('Asistencia') }}</flux:navlist.item>
+                <flux:navlist.item icon="wrench" href="{{ route('store.maintenance') }}" :current="request()->routeIs('store.maintenance')">{{ __('Mantenimiento') }}</flux:navlist.item>
+                <flux:navlist.item icon="document-text" href="{{ route('store.documents') }}" :current="request()->routeIs('store.documents')">{{ __('Documentos') }}</flux:navlist.item>
+                <flux:navlist.item icon="exclamation-triangle" href="{{ route('store.incidents') }}" :current="request()->routeIs('store.incidents')">{{ __('Incidentes') }}</flux:navlist.item>
+                <flux:navlist.item icon="inbox-arrow-down" href="{{ route('store.requests') }}" :current="request()->routeIs('store.requests')">{{ __('Solicitudes') }}</flux:navlist.item>
+                <flux:navlist.item icon="shield-check" href="{{ route('store.access-logs') }}" :current="request()->routeIs('store.access-logs')">{{ __('Registros de Acceso') }}</flux:navlist.item>
+                <flux:navlist.item icon="chat-bubble-left-right" href="{{ route('store.communications') }}" :current="request()->routeIs('store.communications')">{{ __('Comunicaciones') }}</flux:navlist.item>
+                <flux:navlist.item icon="cog-6-tooth" href="{{ route('store.settings') }}" :current="request()->routeIs('store.settings')">{{ __('Configuración de Tienda') }}</flux:navlist.item>
             </flux:navlist>
 
             <flux:spacer />
 
             <flux:navlist variant="outline">
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
+                {{ __('Repositorio') }}
                 </flux:navlist.item>
 
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
+                {{ __('Documentación') }}
                 </flux:navlist.item>
             </flux:navlist>
 
@@ -60,7 +76,7 @@
                     <flux:menu.separator />
 
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>{{ __('Configuración') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
@@ -68,7 +84,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
                         <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                            {{ __('Log Out') }}
+                            {{ __('Cerrar Sesión') }}
                         </flux:menu.item>
                     </form>
                 </flux:menu>
@@ -110,7 +126,7 @@
                     <flux:menu.separator />
 
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>{{ __('Configuración') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
@@ -118,7 +134,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
                         <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                            {{ __('Log Out') }}
+                            {{ __('Cerrar Sesión') }}
                         </flux:menu.item>
                     </form>
                 </flux:menu>
