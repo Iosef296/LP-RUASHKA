@@ -54,6 +54,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/roles', Roles::class)->name('role.index');
         Route::get('/roles/create', AddRole::class)->name('role.create');
         Route::get('/roles/{id}', ShowRole::class)->name('role.show');
+        Route::get('sales/dashboard', \App\Livewire\Sales\Dashboard::class)->name('sales.dashboard');
+        Route::get('sales/pos', \App\Livewire\Sales\POS::class)->name('sales.pos');
+        Route::get('sales/quotes', \App\Livewire\Sales\QuotesManagement::class)->name('sales.quotes');
+        Route::get('sales/customer-service', \App\Livewire\Sales\CustomerService::class)->name('sales.customer-service');
+        Route::get('sales/customer-create', \App\Livewire\Sales\CustomerCreate::class)->name('sales.customer-create');
+        Route::get('sales/customers', \App\Livewire\Sales\Customers::class)->name('sales.customers');
+
         });
 
         Route::middleware(['auth', 'verified'])->prefix('store')->name('store.')->group(function () {

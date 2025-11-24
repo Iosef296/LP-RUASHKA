@@ -179,6 +179,49 @@
 
                 </div>
             </div>
+<div x-data="{ openSales: false }">
+
+    <!-- ENCABEZADO DEL SUBMENÚ -->
+    <button
+        @click="openSales = !openSales"
+        class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium
+            text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-[#192133]
+            rounded-md transition">
+        <span>Ventas</span>
+
+        <!-- Flecha -->
+        <svg :class="openSales ? 'rotate-90' : ''"
+            class="w-4 h-4 transition-transform"
+            fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 5l7 7-7 7" />
+        </svg>
+    </button>
+
+    <!-- ITEMS DEL SUBMENÚ -->
+    <div x-show="openSales" x-collapse class="ml-4 mt-2 space-y-1">
+
+        <flux:navlist.item
+            icon="shopping-bag"
+            :href="route('sales.dashboard')"
+            :current="request()->routeIs('sales.dashboard')"
+            class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+            wire:navigate>
+            Dashboard Ventas
+        </flux:navlist.item>
+
+        <flux:navlist.item
+            icon="users"
+            :href="route('sales.customers')"
+            :current="request()->routeIs('sales.customers')"
+            class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+            wire:navigate>
+            Clientes
+        </flux:navlist.item>
+
+    </div>
+</div>
 
         </flux:navlist> <!-- ← CIERRE CORRECTO -->
 
