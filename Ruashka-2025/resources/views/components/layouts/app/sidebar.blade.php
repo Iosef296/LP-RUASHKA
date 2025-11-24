@@ -1,32 +1,35 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @include('partials.head')
 </head>
 
 <body class="min-h-screen bg-indigo-50 dark:bg-[#0B1221]">
 
+    <!-- SIDEBAR -->
     <flux:sidebar sticky stashable
-        class="border-e border-indigo-200 bg-indigo-50 dark:border-[#1b253d] dark:bg-[#0B1221]">
+        class="border-e border-indigo-200 bg-indigo-50
+               dark:border-[#1b253d] dark:bg-[#0B1221]">
 
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
         <a href="{{ route('dashboard') }}"
-           class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+           class="me-5 flex items-center space-x-2 rtl:space-x-reverse"
+           wire:navigate>
             <x-app-logo />
         </a>
 
-        <!-- NAVLIST PRINCIPAL (CORRECTAMENTE ABIERTO) -->
+        <!-- NAVLIST PRINCIPAL -->
         <flux:navlist variant="outline">
 
-            <!-- SUBMENÚ CONFIGURACIÓN -->
+            <!-- SUBMENÚ: CONFIGURACIÓN -->
             <div x-data="{ openConfig: false }">
-
                 <button
                     @click="openConfig = !openConfig"
                     class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium
                         text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-[#192133]
                         rounded-md transition">
+
                     <span>Configuración</span>
 
                     <svg x-bind:class="openConfig ? 'rotate-90' : ''"
@@ -38,7 +41,7 @@
                     </svg>
                 </button>
 
-                <div x-show="openConfig" x-transition class="ml-4 mt-2 space-y-1">
+                <div x-show="openConfig" x-transition class="ml-4 mt-2 space-y-1" x-cloak>
 
                     <flux:navlist.item
                         icon="users"
@@ -67,7 +70,7 @@
                 </div>
             </div>
 
-            <!-- SUBMENÚ TIENDA -->
+            <!-- SUBMENÚ: TIENDA -->
             <div x-data="{ openStore: false }" x-cloak>
 
                 <button
@@ -179,60 +182,102 @@
 
                 </div>
             </div>
-<div x-data="{ openSales: false }">
 
-    <!-- ENCABEZADO DEL SUBMENÚ -->
-    <button
-        @click="openSales = !openSales"
-        class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium
-            text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-[#192133]
-            rounded-md transition">
-        <span>Ventas</span>
+            <!-- SUBMENÚ: VENTAS -->
+            <div x-data="{ openSales: false }">
 
-        <!-- Flecha -->
-        <svg :class="openSales ? 'rotate-90' : ''"
-            class="w-4 h-4 transition-transform"
-            fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                d="M9 5l7 7-7 7" />
-        </svg>
-    </button>
+                <button
+                    @click="openSales = !openSales"
+                    class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium
+                        text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-[#192133]
+                        rounded-md transition">
 
-    <!-- ITEMS DEL SUBMENÚ -->
-    <div x-show="openSales" x-collapse class="ml-4 mt-2 space-y-1">
+                    <span>Ventas</span>
 
-        <flux:navlist.item
-            icon="shopping-bag"
-            :href="route('sales.dashboard')"
-            :current="request()->routeIs('sales.dashboard')"
-            class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
-            wire:navigate>
-            Dashboard Ventas
-        </flux:navlist.item>
+                    <svg :class="openSales ? 'rotate-90' : ''"
+                        class="w-4 h-4 transition-transform"
+                        fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
 
-        <flux:navlist.item
-            icon="users"
-            :href="route('sales.customers')"
-            :current="request()->routeIs('sales.customers')"
-            class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
-            wire:navigate>
-            Clientes
-        </flux:navlist.item>
+                <div x-show="openSales" x-collapse class="ml-4 mt-2 space-y-1">
 
-    </div>
-</div>
+                    <flux:navlist.item
+                        icon="shopping-bag"
+                        :href="route('sales.dashboard')"
+                        :current="request()->routeIs('sales.dashboard')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Dashboard Ventas
+                    </flux:navlist.item>
 
-        </flux:navlist> <!-- ← CIERRE CORRECTO -->
+                    <flux:navlist.item
+                        icon="users"
+                        :href="route('sales.customers')"
+                        :current="request()->routeIs('sales.customers')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Clientes
+                    </flux:navlist.item>
+
+                </div>
+            </div>
+
+            <!-- SUBMENÚ: INVENTARIO -->
+            <div x-data="{ openInventory: false }">
+
+                <button
+                    @click="openInventory = !openInventory"
+                    class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium
+                        text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-[#192133]
+                        rounded-md transition">
+
+                    <span>Inventario</span>
+
+                    <svg :class="openInventory ? 'rotate-90' : ''"
+                        class="w-4 h-4 transition-transform"
+                        fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+
+                <div x-show="openInventory" x-collapse class="ml-4 mt-2 space-y-1">
+
+                    <flux:navlist.item
+                        icon="home"
+                        :href="route('inveradd')"
+                        :current="request()->routeIs('inveradd')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Inventario
+                    </flux:navlist.item>
+
+                    <flux:navlist.item
+                        icon="inbox-stack"
+                        :href="route('inventorylist')"
+                        :current="request()->routeIs('inventorylist')"
+                        class="hover:bg-indigo-100 dark:hover:bg-[#192133]"
+                        wire:navigate>
+                        Lista
+                    </flux:navlist.item>
+
+                </div>
+            </div>
+
+        </flux:navlist>
 
         <flux:spacer />
 
-        <!-- Dark Mode Button -->
+        <!-- DARK MODE SWITCH -->
         <button
             onclick="toggleDarkMode()"
             id="darkModeToggle"
-            class="p-2 rounded-lg transition-colors
-                   hover:bg-indigo-200 dark:hover:bg-[#192133]">
+            class="p-2 rounded-lg transition-colors hover:bg-indigo-200 dark:hover:bg-[#192133]">
             <span id="lightIcon" class="text-xl hidden">☀️</span>
             <span id="darkIcon" class="text-xl">🌙</span>
         </button>
@@ -240,9 +285,9 @@
         <script>
             function toggleDarkMode() {
                 const html = document.documentElement;
-                const currentMode = localStorage.getItem('darkMode');
+                const mode = localStorage.getItem('darkMode');
 
-                if (currentMode === 'dark') {
+                if (mode === 'dark') {
                     html.classList.remove('dark');
                     localStorage.setItem('darkMode', 'light');
                     updateIcons('light');
@@ -254,22 +299,21 @@
             }
 
             function updateIcons(mode) {
-                document.getElementById('lightIcon').classList.toggle('hidden', mode !== 'dark');
-                document.getElementById('darkIcon').classList.toggle('hidden', mode === 'dark');
+                document.getElementById('lightIcon')
+                    .classList.toggle('hidden', mode !== 'dark');
+                document.getElementById('darkIcon')
+                    .classList.toggle('hidden', mode === 'dark');
             }
 
-            document.addEventListener('DOMContentLoaded', function() {
-                const savedMode = localStorage.getItem('darkMode') || 'light';
-                if (savedMode === 'dark') {
-                    document.documentElement.classList.add('dark');
-                }
-                updateIcons(savedMode);
+            document.addEventListener('DOMContentLoaded', () => {
+                const saved = localStorage.getItem('darkMode') || 'light';
+                if (saved === 'dark') document.documentElement.classList.add('dark');
+                updateIcons(saved);
             });
         </script>
 
-        <!-- User Menu Desktop -->
+        <!-- USER MENU DESKTOP -->
         <flux:dropdown class="hidden lg:block" position="bottom" align="start">
-
             <flux:profile
                 :name="auth()->user()->name"
                 :initials="auth()->user()->initials()"
@@ -280,9 +324,8 @@
 
                 <flux:menu.radio.group>
                     <div class="p-0 text-sm font-normal">
-                        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-
-                            <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
+                        <div class="flex items-center gap-2 px-1 py-1.5">
+                            <span class="relative flex h-8 w-8 rounded-lg overflow-hidden">
                                 <span class="flex h-full w-full items-center justify-center rounded-lg
                                              bg-indigo-200 text-black
                                              dark:bg-[#192133] dark:text-white">
@@ -290,11 +333,10 @@
                                 </span>
                             </span>
 
-                            <div class="grid flex-1 text-start text-sm leading-tight">
+                            <div class="grid flex-1 text-start text-sm">
                                 <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
                                 <span class="truncate text-xs">{{ auth()->user()->email }}</span>
                             </div>
-
                         </div>
                     </div>
                 </flux:menu.radio.group>
@@ -323,12 +365,11 @@
 
     </flux:sidebar>
 
-    <!-- Mobile Header -->
-    <flux:header class="lg:hidden border-b border-indigo-200 bg-indigo-50
-        dark:border-[#1b253d] dark:bg-[#0B1221]">
+    <!-- MOBILE HEADER -->
+    <flux:header class="lg:hidden border-b border-indigo-200
+        dark:border-[#1b253d] bg-indigo-50 dark:bg-[#0B1221]">
 
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
-
         <flux:spacer />
 
         <flux:dropdown position="top" align="end">
@@ -336,11 +377,12 @@
             <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
 
             <flux:menu>
+
                 <flux:menu.radio.group>
                     <div class="p-0 text-sm font-normal">
-                        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                        <div class="flex items-center gap-2 px-1 py-1.5">
 
-                            <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
+                            <span class="relative flex h-8 w-8 overflow-hidden rounded-lg">
                                 <span class="flex h-full w-full items-center justify-center rounded-lg
                                              bg-indigo-200 text-black
                                              dark:bg-[#192133] dark:text-white">
@@ -348,7 +390,7 @@
                                 </span>
                             </span>
 
-                            <div class="grid flex-1 text-start text-sm leading-tight">
+                            <div class="grid flex-1 text-start text-sm">
                                 <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
                                 <span class="truncate text-xs">{{ auth()->user()->email }}</span>
                             </div>
@@ -367,11 +409,10 @@
 
                 <flux:menu.separator />
 
-                <form method="POST" action="{{ route('logout') }}" class="w-full">
+                <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <flux:menu.item as="button" type="submit"
-                        icon="arrow-right-start-on-rectangle"
-                        class="w-full">
+                        icon="arrow-right-start-on-rectangle">
                         {{ __('Log Out') }}
                     </flux:menu.item>
                 </form>
@@ -381,6 +422,7 @@
 
     </flux:header>
 
+    <!-- CONTENIDO -->
     {{ $slot }}
 
     @fluxScripts

@@ -4,6 +4,8 @@ use App\Livewire\AddRole;
 use App\Livewire\AddSede;
 use App\Livewire\Addworker;
 use App\Livewire\EditWorker;
+use App\Livewire\InventoryList;
+use App\Livewire\InverAdd;
 use App\Livewire\Roles;
 use App\Livewire\Sedes;
 use App\Livewire\Settings\Appearance;
@@ -60,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('sales/customer-service', \App\Livewire\Sales\CustomerService::class)->name('sales.customer-service');
         Route::get('sales/customer-create', \App\Livewire\Sales\CustomerCreate::class)->name('sales.customer-create');
         Route::get('sales/customers', \App\Livewire\Sales\Customers::class)->name('sales.customers');
+        route::get('inveradd',InverAdd::class)->name('inveradd');
+        route::get('inventorylist',InventoryList::class)->name('inventorylist');
 
         });
 
