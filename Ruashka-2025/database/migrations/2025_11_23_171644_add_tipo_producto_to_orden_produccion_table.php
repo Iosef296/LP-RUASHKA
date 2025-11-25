@@ -9,8 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orden_de_produccion', function (Blueprint $table) {
-            $table->string('Ord_Prod_Tipo_Producto', 100)->nullable()->after('Ord_Prod_Cantidad');
-        });
+    if (!Schema::hasColumn('orden_de_produccion', 'Ord_Prod_Tipo_Producto')) {
+        $table->string('Ord_Prod_Tipo_Producto', 100)->nullable()->after('Ord_Prod_Cantidad');
+    }
+});
+
     }
 
     public function down(): void

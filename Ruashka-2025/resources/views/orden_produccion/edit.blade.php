@@ -118,26 +118,7 @@
                         </div>
 
                         <!-- Rol -->
-                        <div>
-                            <label for="Rol_ID" class="mb-2 block text-sm font-bold text-gray-700 dark:text-gray-300">
-                                👤 Responsable (Rol) *
-                            </label>
-                            <select name="Rol_ID" 
-                                    id="Rol_ID"
-                                    class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 @error('Rol_ID') border-red-500 @enderror"
-                                    required>
-                                @foreach($roles as $rol)
-                                    <option value="{{ $rol->Rol_ID }}" {{ old('Rol_ID', $orden->Rol_ID) == $rol->Rol_ID ? 'selected' : '' }}>
-                                        {{ $rol->Rol_Tipo }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('Rol_ID')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                    </div>
+                       
 
                     <!-- Botones de acción -->
                     <div class="mt-8 flex items-center justify-end gap-4 border-t border-gray-200 pt-6 dark:border-gray-700">

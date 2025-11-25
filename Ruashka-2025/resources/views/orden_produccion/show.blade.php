@@ -120,25 +120,7 @@
                         </div>
 
                         <!-- Responsable -->
-                        @if($orden->rol)
-                        <div class="flex items-start gap-4 rounded-xl bg-gray-50 p-4 dark:bg-gray-700 md:col-span-2">
-                            <div class="rounded-lg bg-purple-100 p-3 dark:bg-purple-900">
-                                <svg class="h-6 w-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Responsable</p>
-                                <p class="mt-1 text-lg font-bold text-gray-900 dark:text-gray-100">{{ $orden->rol->Rol_Tipo }}</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Accesos: {{ $orden->rol->Rol_Accesos }}</p>
-                            </div>
-                        </div>
-                        @endif
-
-                    </div>
-                </div>
-
-            </div>
+                        
 
             <!-- Materia Prima utilizada -->
             @if($orden->materiasPrimas && $orden->materiasPrimas->count() > 0)

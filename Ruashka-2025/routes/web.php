@@ -16,6 +16,7 @@ use App\Http\Controllers\OrdenProduccionController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\MateriaPrimaController;
 use App\Http\Controllers\MovimientoInventarioController;
+use App\Http\Controllers\CotizacionController;
 
 // Ruta principal (ya existente)
 Route::get('/', function () {
@@ -53,8 +54,6 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     
-    // Rutas para Roles (soporte)
-    Route::resource('roles', RolController::class);
 
     // Historia 001: Planificación de producción
     Route::resource('proyecciones', ProyeccionController::class);
@@ -66,4 +65,10 @@ Route::middleware(['auth'])->group(function () {
     // Historia 003: Gestión de inventario
     Route::resource('materia_prima', MateriaPrimaController::class);
     
+});
+// Rutas de Cotizaciones
+Route::middleware(['auth'])->group(function () {
+    Route::resource('cotizaciones', CotizacionController::class);
+    Route::post('cotizaciones/{id}/convertir', [CotizacionController::class, 'convertirAOrden'])
+        ->name('cotizaciones.convertir');
 });

@@ -71,13 +71,6 @@
                 Proveedores
             </flux:navlist.item>
 
-            <flux:navlist.item
-                icon="users"
-                :href="route('roles.index')"
-                :current="request()->routeIs('roles.*')"
-                wire:navigate>
-                Roles
-            </flux:navlist.item>
 
         </div>
 

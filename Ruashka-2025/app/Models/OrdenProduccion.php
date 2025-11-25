@@ -17,7 +17,6 @@ class OrdenProduccion extends Model
         'Ord_Prod_Fecha_Final',
         'Ord_Prod_Cantidad',
         'Ord_Prod_Estado',
-        'Rol_ID',
         'Ord_Prod_Tipo_Producto',
     ];
 
@@ -26,11 +25,6 @@ class OrdenProduccion extends Model
         'Ord_Prod_Fecha_Final' => 'date',
     ];
 
-    // Relaciones
-    public function rol()
-    {
-        return $this->belongsTo(Rol::class, 'Rol_ID', 'Rol_ID');
-    }
 
     public function materiasPrimas()
     {
