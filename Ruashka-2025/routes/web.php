@@ -64,6 +64,12 @@ Route::middleware(['auth'])->group(function () {
 
     // Historia 003: Gestión de inventario
     Route::resource('materia_prima', MateriaPrimaController::class);
+
+    // Rutas adicionales para Orden de Producción
+Route::post('orden_produccion/cambiar-estado-lote', [OrdenProduccionController::class, 'cambiarEstadoLote'])
+    ->name('orden_produccion.cambiar_estado_lote');
+Route::get('orden_produccion/exportar-pdf', [OrdenProduccionController::class, 'exportarPDF'])
+    ->name('orden_produccion.exportar_pdf');
     
 });
 // Rutas de Cotizaciones
